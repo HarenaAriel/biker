@@ -8,7 +8,9 @@
 
 <div class="container-fluid mt-3">
 
-  <button class="btn btn-primary newElement"> Test append </button>
+  <button class="btn btn-primary oldElement"> Test append </button>
+
+  <button class="btn btn-primary newElement" onclick="ModifyText()"> Test functionnalities </button>
 
   <div class="newHtml">
 
@@ -22,12 +24,16 @@
 
   $(document).ready(function () {
 
-    $('.newElement').click(function () {
+    $('.oldElement').click(function () {
 
       $('.newHtml').append("test");
 
     });
 
   });
+
+  function ModifyText() {
+    alert($('.newHtml').text());
+  }
 
 </script>
