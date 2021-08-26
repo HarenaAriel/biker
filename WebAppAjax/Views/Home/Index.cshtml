@@ -8,43 +8,177 @@
 
 <div class="container-fluid mt-3">
 
-  <button class="btn btn-primary oldElement" onclick="appendeo()" data-bs-toggle="modal" data-bs-target="#exampleModal"> Test append </button>
+  @* GET *@
 
-  <button class="btn btn-primary newElement" onclick="ModifyText()"> Test functionnalities </button>
+  <table class="table table-bordered table-condensed table-hover table-striped tableGet" hidden>
+    <thead>
+      <tr>
+        <th>EmployeeId</th>
+        <th>EmployeeName</th>
+        <th>MapCity</th>
+        <th>MapAddress</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
 
-  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  @* POST *@
+
+  <table class="table table-bordered table-condensed table-hover table-striped tablePost">
+    <thead>
+      <tr>
+        <th>EmployeeId</th>
+        <th>EmployeeName</th>
+        <th>MapCity</th>
+        <th>MapAddress</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  @* Test Insertion dans un objet *@
+
+  <div class="row">
+
+    <h3 class="text-uppercase"> Formulaire ajout employé </h3>
+
+    <div class="col-md-3">
+
+      <label for="ID" class="form-label">Employee ID</label>
+      <input type="number" id="ID" class="form-control" />
+
+    </div>
+
+    <div class="col-md-3">
+
+      <label for="Name" class="form-label">Employee Name</label>
+      <input type="text" id="Name" class="form-control" />
+
+    </div>
+
+    <div class="col-md-3">
+
+      <label for="City" class="form-label">Employee City</label>
+      <input type="text" id="City" class="form-control" />
+
+    </div>
+
+    <div class="col-md-3">
+
+      <label for="Address" class="form-label">Employee Address</label>
+      <input type="text" id="Address" class="form-control" />
+
+    </div>
+
+    <div class="col-md-3 mt-2">
+
+      <input id="validation" type="button" class="btn btn-primary" style="width:100%" value="Save" />
+
+    </div>
+
+  </div>
+
+  <div id="result" class="appendText">
 
   </div>
 
 </div>
 
+<script>
 
-  <!-- All script -->
+  $(document).ready(function () {
+
+    $.getJSON("/Home/EmployDetailsGet",
+      function (json) {
+        var tr;
+
+        for (var i = 0; i < json.length; i++) {
+          tr = $('<tr/>');
+          tr.append("<td>" + json[i].EmployeeId + "</td>");
+          tr.append("<td>" + json[i].EmployeeName + "</td>");
+          tr.append("<td>" + json[i].MapCity + "</td>");
+          tr.append("<td>" + json[i].MapAddress + "</td>");
+          $('.tableGet').append(tr);
+        }
+      });
+  });
+
+</script>
 
 <script>
 
-  function appendeo() {
-    console.log('itany');
+  $(document).ready(function () {
 
-    $('.modal').html('<div class="modal-dialog">' +
-      '<div class="modal-content">' +
-      '<div class="modal-header">' +
-      '<h5 class="modal-title" id="exampleModalLabel">Modal title</h5>' +
-      '<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>' +
-      '</div>' +
-      '<div class="modal-body">' +
-      '</div>' +
-      '<div class="modal-footer">' +
-      '<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>' +
-      '<button type="button" class="btn btn-primary">Save changes</button>' +
-      '</div>' +
-      '</div>' +
-      '</div>');
+    $.ajax({
+        async: true,
+        cache: true,
+        url: "@(Url.Action("EmployDetailsPost", "Home"))",
+        dataType: 'json',
+        type: "POST",
+        success: function (data) {
+          var tr;
 
-  }
+          for (var i = 0; i < data.length; i++) {
+            tr = $('<tr/>');
+            tr.append("<td>" + data[i].EmployeeId + "</td>");
+            tr.append("<td>" + data[i].EmployeeName + "</td>");
+            tr.append("<td>" + data[i].MapCity + "</td>");
+            tr.append("<td>" + data[i].MapAddress + "</td>");
+            $('.tablePost').append(tr);
+          }
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            
+        }
+    });
 
-  function ModifyText() {
-    $('.testAppend').empty();
-  }
+  });
+
+</script>
+
+<script>
+
+  $('#validation').click(function () {
+
+    $('.appendText').empty();
+
+    var ID = document.getElementById('ID').value;
+    var name = document.getElementById('Name').value;
+    var city = document.getElementById('City').value;
+    var address = document.getElementById('Address').value;
+
+    if (ID == "" || name == "" || city == "" || address == "") {
+      $('.appendText').empty();
+
+      $('.appendText').append('<p style="color:red"> Toutes les champs doivent être remplies </p>');
+    }
+    else {
+      $('.appendText').empty();
+
+      var params = {
+        id : ID,
+        name : name,
+        city : city,
+        address : address
+      };
+
+      $.ajax({
+        async: true,
+        cache: false,
+        global: false,
+        url: "@(Url.Action("AddEmploye", "Home"))",
+        method: "Post",
+        data: JSON.stringify(params),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function () {
+        },
+        error: function (err) {
+          console.log(err);
+        }
+      });
+    }
+
+  });
 
 </script>

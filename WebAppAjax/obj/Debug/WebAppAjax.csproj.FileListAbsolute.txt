@@ -136,7 +136,6 @@ D:\ASP\biker\WebAppAjax\bin\System.Web.WebPages.xml
 D:\ASP\biker\WebAppAjax\bin\System.Web.WebPages.Deployment.xml
 D:\ASP\biker\WebAppAjax\bin\System.Web.WebPages.Razor.xml
 D:\ASP\biker\WebAppAjax\bin\Antlr3.Runtime.pdb
-D:\ASP\biker\WebAppAjax\obj\Debug\WebAppAjax.csproj.AssemblyReference.cache
 D:\ASP\biker\WebAppAjax\obj\Debug\WebAppAjax.csproj.CoreCompileInputs.cache
 D:\ASP\biker\WebAppAjax\obj\Debug\WebAppAjax.csproj.CopyComplete
 D:\ASP\biker\WebAppAjax\obj\Debug\WebAppAjax.dll
@@ -205,3 +204,4 @@ E:\biker\WebAppAjax\obj\Debug\WebAppAjax.csproj.CoreCompileInputs.cache
 E:\biker\WebAppAjax\obj\Debug\WebAppAjax.csproj.CopyComplete
 E:\biker\WebAppAjax\obj\Debug\WebAppAjax.dll
 E:\biker\WebAppAjax\obj\Debug\WebAppAjax.pdb
+D:\ASP\biker\WebAppAjax\obj\Debug\WebAppAjax.csproj.AssemblyReference.cache
